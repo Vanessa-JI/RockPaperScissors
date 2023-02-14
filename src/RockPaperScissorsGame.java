@@ -2,32 +2,29 @@ import java.util.Scanner;
 import java.util.Random;
 import java.util.HashMap;
 
-public class Main {
+public class RockPaperScissorsGame {
 
+    // playGame function: takes in the current score and updates wins, losses, and draws accordingly after one round of rock, paper, scissors
     public static int[] playGame(int[] scores) {
 
-        // define a dictionary for the computer's moves
+        // define a hashmap for the computer's moves -- maps a numeric value to the move played by the computer
         HashMap<Integer, String> compMoveMap = new HashMap<Integer, String>();
         compMoveMap.put(1, "rock");
         compMoveMap.put(2, "paper");
         compMoveMap.put(3, "scissors");
 
-        // ask user for input -- get their first move
-        System.out.println("Pick your move!");
-        System.out.println("1: Rock");
-        System.out.println("2: Paper");
-        System.out.println("3: Scissors \n");
+        // ask user for input -- get their first move (move is represented by a number)
+        System.out.println("Pick your move! \n 1: Rock \n 2: Paper \n 3: Scissors \n");
         Scanner input = new Scanner(System.in);
-
         int userMove = input.nextInt();
+
         // let computer randomly generate rock, paper, or scissors
         Random rand = new Random();
-        int maxValue = 2;
-        int compMove = rand.nextInt(maxValue) + 1; // adding 1 because the range is from 0 to maxValue
+        int MAXVALUE = 2;
+        int compMove = rand.nextInt(MAXVALUE) + 1; // adding 1 because the range is from 0 to MAXVALUE
 
         // check if user has won, lost, or drawn
         // increment win, loss, draw score appropriately
-
         if ((userMove == 1 && compMove == 3) || (userMove == 2 && compMove == 1) || (userMove == 3 && compMove == 2)) {
             scores[0] += 1;
             System.out.println("The computer chose " + compMoveMap.get(compMove) + ". You won! \n");
@@ -46,9 +43,6 @@ public class Main {
     public static void main(String[] args) {
 
         int[] scores = {0, 0, 0}; //first value is wins, second is losses, third is draws
-//        int userWins = 0;
-//        int userLosses = 0;
-//        int userDraws = 0;
 
         // ask user for input -- find out how many rounds to play
         System.out.println("How many rounds would you like to play? ");
@@ -70,36 +64,41 @@ public class Main {
         }
 
         // when number of rounds has been completed, show score
-        System.out.println("Your stats: ");
-        System.out.println("Wins: " + scores[0]);
-        System.out.println("Losses: " + scores[1]);
-        System.out.println("Draws: " + scores[2] + "\n");
+        System.out.println("Game over. Your stats: ");
+        System.out.println("Wins: " + scores[0] + "\nLosses: " + scores[1] + "\nDraws: " + scores[2] + "\n");
 
-        // calculate whether the user has won
-        if (scores[0] > scores[1] && scores[0] > scores[2]) {
+        /* calculate whether the user has won
+            conditions for win:
+                - number of wins is greater than number of losses AND draws OR
+                - number of wins is equal to number of draws AND greater than number of losses
+            conditions for loss:
+                - number of losses is greater than number of wins AND draws OR
+                - number of losses is equal to number of draws AND greater than number of wins
+            conditions for draw:
+                - number of draws is greater than number of wins AND losses OR
+                - number of wins is equal to number of losses
+        */
+        if ((scores[0] > scores[1] && scores[0] > scores[2]) || (scores[0] == scores[2] && scores[0] > scores[1])) {
             System.out.println("Congratulations! You beat the computer.");
-        } else if (scores[1] > scores[0] && scores[1] > scores[2]) {
+        } else if ((scores[1] > scores[0] && scores[1] > scores[2]) || (scores[1] == scores[2]) && scores[1] > scores[0]) {
             System.out.println("You lost! Try again next time.");
-        } else if ((scores[2] > scores[1] && scores[2] > scores[0]) || (scores[0] == scores[1] && scores[0] == scores[2])) {
+        } else if ((scores[2] > scores[0] && scores[2] > scores[1]) || (scores[0] == scores[1])) {
             System.out.println("Nice! You drew with the computer.");
-        } else {
-            System.out.println("Nice! You drew with the computer."); // NEED TO FIX THIS FINAL ELSE STATEMENT
-
         }
 
         // get user input if they want to continue or end the game
-        System.out.println("Would you like to play again?");
-        System.out.println("1: Yes");
-        System.out.println("2: No");
+        System.out.println("Would you like to play again? \n1: Yes \n2: No");
         Scanner replayInput = new Scanner(System.in);
         int replay = replayInput.nextInt();
 
         if (replay == 1) {
+            // replay the game if the user chooses to replay
             main(args);
+        } else {
+            // exit game if user selects to exit
+            System.out.println("Thanks for playing!");
+            return;
         }
-
-        // exit game if user selects to exit
-        return;
 
     } // End of main function
 
