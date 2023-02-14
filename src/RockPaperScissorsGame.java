@@ -4,8 +4,8 @@ import java.util.HashMap;
 
 public class RockPaperScissorsGame {
 
-    // playGame function: takes in the current score and updates wins, losses, and draws accordingly after one round of rock, paper, scissors
-    public static int[] playGame(int[] scores) {
+    // playRound function: takes in the current score and updates wins, losses, and draws accordingly after one round of rock, paper, scissors
+    public static int[] playRound(int[] scores) {
 
         // define a hashmap for the computer's moves -- maps a numeric value to the move played by the computer
         HashMap<Integer, String> compMoveMap = new HashMap<Integer, String>();
@@ -18,13 +18,14 @@ public class RockPaperScissorsGame {
         Scanner input = new Scanner(System.in);
         int userMove = input.nextInt();
 
-        // let computer randomly generate rock, paper, or scissors
+        // let computer randomly generate a move of rock, paper, or scissors
         Random rand = new Random();
-        int MAXVALUE = 2;
-        int compMove = rand.nextInt(MAXVALUE) + 1; // adding 1 because the range is from 0 to MAXVALUE
+        int MAXVALUE = 3;
+        int compMove = rand.nextInt(MAXVALUE) + 1; // adding 1 because the range is from 0 to MAXVALUE and .nextInt() is non-inclusive
 
         // check if user has won, lost, or drawn
         // increment win, loss, draw score appropriately
+        // print a message showing the result of the current round
         if ((userMove == 1 && compMove == 3) || (userMove == 2 && compMove == 1) || (userMove == 3 && compMove == 2)) {
             scores[0] += 1;
             System.out.println("The computer chose " + compMoveMap.get(compMove) + ". You won! \n");
@@ -40,9 +41,10 @@ public class RockPaperScissorsGame {
 
     }
 
+    // main function
     public static void main(String[] args) {
 
-        int[] scores = {0, 0, 0}; //first value is wins, second is losses, third is draws
+        int[] scores = {0, 0, 0}; // first value is wins, second is losses, third is draws
 
         // ask user for input -- find out how many rounds to play
         System.out.println("How many rounds would you like to play? ");
@@ -52,15 +54,13 @@ public class RockPaperScissorsGame {
         // check if the number of rounds is in bounds
         // if chosen number of rounds is out of bounds, exit program
         if (rounds < 1 || rounds > 10)  {
-            System.out.println("Error -- number of rounds is out of bounds. Please choose a number between 1 and 10.");
+            System.out.println("Error: number of rounds is out of bounds. Please choose a number between 1 and 10.");
             return;
         }
 
         // if chosen number of rounds is in bounds, play the game the specified number of times
         for (int i = 0; i < rounds; i++) {
-
-            scores = playGame(scores);
-
+            scores = playRound(scores); // updated scores are returned after the game has been played
         }
 
         // when number of rounds has been completed, show score
@@ -97,7 +97,6 @@ public class RockPaperScissorsGame {
         } else {
             // exit game if user selects to exit
             System.out.println("Thanks for playing!");
-            return;
         }
 
     } // End of main function
