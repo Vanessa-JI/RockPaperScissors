@@ -20,20 +20,20 @@ public class RockPaperScissorsGame {
 
         // let computer randomly generate a move of rock, paper, or scissors
         Random rand = new Random();
-        int MAXVALUE = 3;
+        final int MAXVALUE = 3;
         int compMove = rand.nextInt(MAXVALUE) + 1; // adding 1 because the range is from 0 to MAXVALUE and .nextInt() is non-inclusive
 
         // check if user has won, lost, or drawn
         // increment win, loss, draw score appropriately
         // print a message showing the result of the current round
         if ((userMove == 1 && compMove == 3) || (userMove == 2 && compMove == 1) || (userMove == 3 && compMove == 2)) {
-            scores[0] += 1;
+            scores[0]++;
             System.out.println("The computer chose " + compMoveMap.get(compMove) + ". You won! \n");
         } else if ((userMove == 1 && compMove == 2) || (userMove == 2 && compMove == 3) || (userMove == 3 && compMove == 1)) {
-            scores[1] += 1;
+            scores[1]++;
             System.out.println("The computer chose " + compMoveMap.get(compMove) + ". You lost! \n");
         } else if (userMove == compMove) {
-            scores[2] += 1;
+            scores[2]++;
             System.out.println("The computer chose " + compMoveMap.get(compMove) + ". It's a draw! \n");
         }
 
