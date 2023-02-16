@@ -4,6 +4,8 @@ import java.util.HashMap;
 
 public class RockPaperScissorsGame {
 
+    public static String x = "Welcome to the game!";
+
     // playRound function: takes in the current score and updates wins, losses, and draws accordingly after one round of rock, paper, scissors
     public static int[] playRound(int[] scores) {
 
@@ -47,6 +49,7 @@ public class RockPaperScissorsGame {
         int[] scores = {0, 0, 0}; // first value is wins, second is losses, third is draws
 
         // ask user for input -- find out how many rounds to play
+        System.out.println(RockPaperScissorsGame.x);
         System.out.println("How many rounds would you like to play? ");
         Scanner input = new Scanner(System.in);
         int rounds = input.nextInt();
