@@ -8,7 +8,8 @@ public class RockPaperScissorsGame {
 
     // playRound function: takes in the current score and updates wins, losses, and draws accordingly after one round of rock, paper, scissors
     public static int[] playRound(int[] scores) {
-
+        
+        // EDIT TO USE ENUMS 
         // define a hashmap for the computer's moves -- maps a numeric value to the move played by the computer
         HashMap<Integer, String> compMoveMap = new HashMap<Integer, String>();
         compMoveMap.put(1, "rock");
